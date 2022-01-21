@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/", authenticate, async (req, res, next) => {
   try {
-    console.log(req.query);
+    
     const { page = 1, limit = 20, favorite } = req.query;
     const skip = (page - 1) * limit;
     const { _id } = req.user;
@@ -47,7 +47,7 @@ router.get("/:contactId", async (req, res, next) => {
 });
 
 router.post("/", authenticate, async (req, res, next) => {
-  console.log(req.user);
+  
   try {
     const { error } = joiSchema.validate(req.body);
 
@@ -69,7 +69,7 @@ router.delete("/:contactId", async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const deleteContact = await Contact.findByIdAndRemove(contactId);
-    console.log(deleteContact);
+   
     if (!deleteContact) {
       throw new NotFound();
     }
@@ -91,7 +91,7 @@ router.put("/:contactId", async (req, res, next) => {
       req.body,
       { new: true }
     );
-    console.log(updateByContact);
+    
     if (!updateByContact) {
       throw new NotFound();
     }
@@ -116,7 +116,7 @@ router.patch("/:contactId/favorite", async (req, res, next) => {
       { favorite },
       { new: true }
     );
-    console.log(updateStatusContact);
+    
     if (!updateStatusContact) {
       throw new NotFound();
     }
